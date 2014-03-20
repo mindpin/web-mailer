@@ -1,1 +1,6 @@
-
+.page-mail-template-list
+  .title 邮件模版
+  .list
+    - @mails.each do |mail|
+      .mail
+        %a{:href => "/send_mail/#{mail}"}=mail

@@ -11,6 +11,7 @@ gem 'sass'
 gem 'coffee-script'
 gem 'yui-compressor'
 gem 'uglifier'
+gem 'actionmailer', '3.2.12'
 
 gem 'mina',
     :git => 'git://github.com/fushang318/mina.git',

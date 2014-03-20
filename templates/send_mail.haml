@@ -1,0 +1,28 @@
+%form{:action => "/send_mail", :method => "post"}
+  %input{:type => "hidden", :name => "name", :value => params[:name]}
+  %ol
+    %li
+      %label{:for => "mail[smtp]"} SMTP服务器:
+      %input{:type => "text", :name => "mail[smtp]", :value => "smtp.126.com"}
+    %li
+      %label{:for => "mail[username]"} 用户名:
+      %input{:type => "text", :name => "mail[username]"}
+    %li
+      %label{:for => "mail[password]"} 密码:
+      %input{:type => "password", :name => "mail[password]"}
+    %li
+      %label{:for => "mail[to]"} 收件人:
+      %input{:type => "text", :name => "mail[to]"}
+    %li
+      %label{:for => "mail[cc]"} 抄送:
+      %input{:type => "text", :name => "mail[cc]"}
+    %li
+      %label{:for => "mail[subject]"} 标题:
+      %input{:type => "text", :name => "mail[subject]"}
+    %li
+      %label{:for => "mail[content]"} 正文:
+      %textarea{:name => "mail[content]"}
+    %li
+      %label{:for => "mail[attachment]"} 附件:
+      %input{:type => "file", :name => "mail[attachment]"}
+  %input{:type => "submit", :value => "发送"}
