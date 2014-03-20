@@ -1,6 +1,5 @@
 # -*- coding: utf-8 -*-
 ENV['RACK_ENV'] = 'test'
-require "bundler"
 require "./lib/app"
 Bundler.require(:test)
 

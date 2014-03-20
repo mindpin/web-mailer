@@ -1,16 +1,3 @@
-require "bundler"
-Bundler.setup(:default)
-require "sinatra"
-require "sinatra/reloader"
-require 'sinatra/assetpack'
-require "pry"
-require "sinatra"
-require 'haml'
-require 'sass'
-require 'coffee_script'
-require 'yui/compressor'
-require 'sinatra/json'
-require 'mongoid'
 require File.expand_path("../../config/env",__FILE__)
 
 class WebMailerApp < Sinatra::Base
@@ -40,6 +27,31 @@ class WebMailerApp < Sinatra::Base
   }
 
   get "/" do
+    @mails = Dir[File.expand_path("../../templates/mailer/*.haml", __FILE__)]
+    @mails.map!{|path|File.basename(path)}
+    haml :index
+  end
+
+  get '/send_mail/:name' do
+    haml :send_mail
+  end
+
+  post "/send_mail" do
+    mail = Mailer.send_email(
+      :template_name => params[:name],
+      :from => params[:mail][:username],
+      :to   => params[:mail][:to],
+      :cc   => params[:mail][:cc],
+      :subject => params[:mail][:subject],
+      :content => params[:mail][:content]
+    )
+    mail.delivery_method.settings.merge!(
+      :address   => params[:mail][:smtp],
+      :user_name => params[:mail][:username],
+      :password  => params[:mail][:password]
+    )
+    mail.deliver
+    haml :send_mail
   end
 
 end
